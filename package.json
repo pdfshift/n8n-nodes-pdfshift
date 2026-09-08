@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-pdfshift",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "PDFShift node for n8n to generate PDF or images from HTML documents such as URL and raw documents.",
   "keywords": [
     "n8n-community-node-package"
