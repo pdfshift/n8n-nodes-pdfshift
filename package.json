@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-pdfshift",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "PDFShift node for n8n to generate PDF or images from HTML documents such as URL and raw documents.",
   "keywords": [
     "n8n-community-node-package"
@@ -16,13 +16,13 @@
     "url": "https://github.com/pdfshift/n8n-nodes-pdfshift.git"
   },
   "scripts": {
-      "build": "n8n-node build",
-      "build:watch": "tsc --watch",
-      "dev": "n8n-node dev",
-      "lint": "n8n-node lint",
-      "lint:fix": "n8n-node lint --fix",
-      "release": "n8n-node release",
-      "prepublishOnly": "n8n-node prerelease"
+    "build": "n8n-node build",
+    "build:watch": "tsc --watch",
+    "dev": "n8n-node dev",
+    "lint": "n8n-node lint",
+    "lint:fix": "n8n-node lint --fix",
+    "release": "n8n-node release",
+    "prepublishOnly": "n8n-node prerelease"
   },
   "files": [
     "dist"
@@ -38,11 +38,11 @@
     ]
   },
   "devDependencies": {
-      "@n8n/node-cli": "*",
-      "eslint": "9.32.0",
-      "prettier": "3.6.2",
-      "release-it": "^19.0.4",
-      "typescript": "5.9.2"
+    "@n8n/node-cli": "*",
+    "eslint": "9.32.0",
+    "prettier": "3.6.2",
+    "release-it": "^19.0.4",
+    "typescript": "5.9.2"
   },
   "peerDependencies": {
     "n8n-workflow": "*"
