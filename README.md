@@ -1,12 +1,15 @@
 # n8n-nodes-pdfshift
 
-![n8n.io - Workflow Automation](https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png)
-[![pdfshift.io](https://pdfshift.io/images/favicons/android-chrome-512x512.png)](https://pdfshift.io/)
+[![pdfshift.io](https://pdfshift.io/images/logo/logo-violet.png)](https://pdfshift.io/)
 
-`n8n-nodes-pdfshift` is an n8n community node. It lets you use [PDFShift](https://pdfshift.io/) in your n8n workflows.
+`n8n-nodes-pdfshift` is an n8n community node.
+It lets you use [PDFShift](https://pdfshift.io/) in your n8n workflows.
+
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
 PDFShift is a service that allows you to generate PDF or screenshot images from HTML documents such as URL and raw documents.
+
+You can read more at [PDFShift's website](https://pdfshift.io)
 
 - [Installation](#installation)
 - [Operations](#operations)
@@ -45,11 +48,11 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 To use PDFShift node, you will need to authenticate with the PDFShift API.
 
 1. [Sign up for or sign in to a PDFShift account](https://app.pdfshift.io/).
-2. [Create or access your API Key](https://app.pdfshift.io/env/apikeys).
+2. Go to "**API Keys**".
 3. Create new credentials in n8n:
-   3.1. Add and use the PDFShift node in your workflow.
-   3.2. Under "Credential to connect with", click "Create New Credential".
-   3.3. Paste the API (access) key you copied in step 2.
+   1. Add and use the PDFShift node in your workflow.
+   2. Under "Credential to connect with", click "Create New Credential".
+   3. Paste the API (access) key you copied in step 2.
 
 Test the credentials and make sure it works:
 
@@ -114,7 +117,8 @@ Or:
 
 ## Version history
 
-- 0.1.1 - Initial release of the PDFShift node for n8n 🥳
+- 0.1.2 - Initial release of the PDFShift node for n8n 🥳
+- 0.1.3 - Updated the documentation
 
 
 ## Development
