@@ -23,7 +23,7 @@ export class Pdfshift implements INodeType {
             dark: 'file:../../icons/pdfshift-dark.png'
         },
         version: 1,
-        description: 'Generate PDF or images from URL or raw HTML documents using PDFShift',
+        description: 'Generate PDF or images from any HTML documents using PDFShift',
         defaults: {
             name: 'PDFShift',
         },
@@ -42,9 +42,24 @@ export class Pdfshift implements INodeType {
                 name: 'operation',
                 type: 'options',
                 options: [
-                    { name: 'Convert To PDF', value: 'pdf' },
-                    { name: 'Generate A Screenshot', value: 'screenshot' },
-                    { name: 'View Your Credits Usage', value: 'usage' }
+                    {
+                        name: 'Convert to PDF',
+                        value: 'pdf',
+                        action: 'Convert a document to PDF',
+                        description: 'Generate a PDF from a URL or raw HTML'
+                    },
+                    {
+                        name: 'Generate Screenshot',
+                        value: 'screenshot',
+                        action: 'Generate a screenshot',
+                        description: 'Capture an image from a URL or raw HTML'
+                    },
+                    {
+                        name: 'Get Credits Usage',
+                        value: 'usage',
+                        action: 'Get credits usage',
+                        description: 'Retrieve your current credits usage'
+                    }
                 ],
                 noDataExpression: true,
                 required: true,
@@ -72,6 +87,7 @@ export class Pdfshift implements INodeType {
                 name: 'url',
                 type: 'string',
                 description: 'The URL to render',
+                placeholder: 'e.g. https://example.com',
                 required: true,
                 default: '',
                 requiresDataPath: 'single',
@@ -89,6 +105,7 @@ export class Pdfshift implements INodeType {
                     rows: 4
                 },
                 description: 'The HTML to render',
+                placeholder: 'e.g. <h1>Hello World</h1>',
                 required: true,
                 default: '',
                 requiresDataPath: 'single',
@@ -133,7 +150,8 @@ export class Pdfshift implements INodeType {
             {
                 displayName: 'Selector',
                 name: 'selector',
-                description: "Specific CSS Selector to target for the image",
+                description: "Specific CSS selector to target for the image",
+                placeholder: 'e.g. #invoice>div ul',
                 type: 'string',
                 default: '',
                 required: true,
@@ -251,6 +269,7 @@ export class Pdfshift implements INodeType {
                 displayName: 'Format',
                 name: 'format',
                 description: 'Format in which to print the document. Accepts format such as A2, A3, A4, A5, A6, Letter, but also custom format using {width}x{height}, and {height} can be "auto" to adjust the height automatically.',
+                placeholder: 'e.g. A4',
                 type: 'string',
                 default: 'A4',
                 required: true,
@@ -263,7 +282,8 @@ export class Pdfshift implements INodeType {
             {
                 displayName: 'Custom CSS',
                 name: 'css',
-                description: 'Inject custom CSS in the document',
+                description: 'Custom CSS to inject into the document',
+                placeholder: 'e.g. body { margin: 0; }',
                 type: 'string',
                 typeOptions: {
                     rows: 4
@@ -278,7 +298,8 @@ export class Pdfshift implements INodeType {
             {
                 displayName: 'Custom Javascript',
                 name: 'javascript',
-                description: 'Inject custom javascript in the document',
+                description: 'Custom Javascript to inject into the document',
+                placeholder: "e.g. document.querySelector('.ad').remove()",
                 type: 'string',
                 typeOptions: {
                     rows: 4
@@ -293,7 +314,7 @@ export class Pdfshift implements INodeType {
             {
                 displayName: 'Header Section',
                 name: 'header',
-                description: 'Adds a custom header section to the PDF',
+                description: 'Custom header section to add to the PDF',
                 type: 'collection',
                 placeholder: 'Add header',
                 default: {},
@@ -301,7 +322,8 @@ export class Pdfshift implements INodeType {
                     {
                         displayName: 'Source',
                         name: 'source',
-                        description: 'Source can be either raw HTML or an URL',
+                        description: 'Source can be either raw HTML or a URL',
+                        placeholder: 'e.g. https://example.com/header.html',
                         type: 'string',
                         default: ''
                     },
@@ -331,14 +353,15 @@ export class Pdfshift implements INodeType {
             {
                 displayName: 'Footer Section',
                 name: 'footer',
-                description: 'Adds a custom footer section to the PDF',
+                description: 'Custom footer section to add to the PDF',
                 type: 'collection',
                 placeholder: 'Add footer',
                 options: [
                     {
                         displayName: 'Source',
                         name: 'source',
-                        description: 'Source can be either raw HTML or an URL',
+                        description: 'Source can be either raw HTML or a URL',
+                        placeholder: 'e.g. https://example.com/header.html',
                         type: 'string',
                         default: ''
                     },
@@ -359,7 +382,7 @@ export class Pdfshift implements INodeType {
                         }
                     }
                 ],
-                default: null,
+                default: {},
                 displayOptions: {
                     show: {
                         operation: ['pdf']
@@ -451,9 +474,10 @@ export class Pdfshift implements INodeType {
                 }
             },
             {
-                displayName: 'Wait for',
+                displayName: 'Wait For',
                 name: 'wait_for',
                 description: "Wait for a given function's name to return a truthy value before continuing",
+                placeholder: 'e.g. isReadyForPDFShift',
                 type: 'string',
                 default: '',
                 displayOptions: {
@@ -477,7 +501,7 @@ export class Pdfshift implements INodeType {
             {
                 displayName: 'Margin',
                 name: 'margin',
-                description: 'Adds margin to the generated PDF',
+                description: 'Margins to add to the generated PDF',
                 type: 'collection',
                 options: [
                     {
@@ -521,7 +545,7 @@ export class Pdfshift implements INodeType {
                         default: null
                     }
                 ],
-                default: null,
+                default: {},
                 displayOptions: {
                     show: {
                         operation: ['pdf']
@@ -531,13 +555,13 @@ export class Pdfshift implements INodeType {
             {
                 displayName: 'HTTP Headers',
                 name: 'http_headers',
-                description: 'Add custom HTTP headers that will be sent to the URL being loaded',
+                description: 'Custom HTTP headers to send to the URL being loaded',
                 placeholder: 'Add Header',
                 type: 'fixedCollection',
                 typeOptions: {
                     multipleValues: true
                 },
-                default: null,
+                default: {},
                 options: [
                     {
                         name: 'headerValues',
@@ -548,6 +572,7 @@ export class Pdfshift implements INodeType {
                                 name: 'name',
                                 type: 'string',
                                 description: 'Name of the header key to add',
+                                placeholder: 'e.g. X-Custom-Header',
                                 default: ''
                             },
                             {
@@ -555,7 +580,8 @@ export class Pdfshift implements INodeType {
                                 name: 'value',
                                 type: 'string',
                                 default: '',
-                                description: 'Value to set for the header'
+                                description: 'Value to set for the header',
+                                placeholder: 'e.g. my-value'
                             }
                         ]
                     }
@@ -569,13 +595,13 @@ export class Pdfshift implements INodeType {
             {
                 displayName: 'Cookies',
                 name: 'cookies',
-                description: 'Add custom cookies that will be sent along with the request',
+                description: 'Custom cookies to send along with the request',
                 placeholder: 'Add Cookie',
                 type: 'fixedCollection',
                 typeOptions: {
                     multipleValues: true
                 },
-                default: null,
+                default: {},
                 options: [
                     {
                         name: 'cookieValues',
@@ -586,6 +612,7 @@ export class Pdfshift implements INodeType {
                                 name: 'name',
                                 type: 'string',
                                 description: 'Name of the cookie to add',
+                                placeholder: 'e.g. session_id',
                                 default: ''
                             },
                             {
@@ -593,6 +620,7 @@ export class Pdfshift implements INodeType {
                                 name: 'value',
                                 type: 'string',
                                 description: 'Value to set for the cookie',
+                                placeholder: 'e.g. abc123',
                                 default: ''
                             },
                             {
@@ -621,7 +649,7 @@ export class Pdfshift implements INodeType {
             {
                 displayName: 'Response Type',
                 name: 'response_type',
-                description: 'Either get the raw binary data, or a stored file on S3, available via an URL',
+                description: 'Either get the raw binary data, or a stored file on S3, available via a URL',
                 type: 'options',
                 options: [
                     {
@@ -654,7 +682,8 @@ export class Pdfshift implements INodeType {
             {
                 displayName: 'S3 Destination',
                 name: 's3_destination',
-                description: 'Use your own S3 Storage to store the generated document',
+                description: 'Your own S3 storage location for the generated document',
+                placeholder: 'e.g. s3://my-bucket/document.pdf',
                 type: 'string',
                 default: '',
                 displayOptions: {
@@ -939,8 +968,11 @@ export class Pdfshift implements INodeType {
 
                 if (parameters.is_gdpr && parameters.filename && !parameters.s3_destination) {
                     throw new NodeOperationError(this.getNode(),
-                        'A JSON response for a sensitive document requires an S3 Destination (GDPR/BAA forbids storing the file on PDFShift).',
-                        { itemIndex: i });
+                        "A sensitive document can't be returned as JSON without an 'S3 Destination'",
+                        {
+                            itemIndex: i,
+                            description: "GDPR/BAA compliance forbids PDFShift from storing the file, so set an 'S3 Destination' or change 'Response Type' to Binary.",
+                        });
                 }
 
                 const data = await PDFShiftRequest({
@@ -982,12 +1014,12 @@ export class Pdfshift implements INodeType {
                 }
 
                 if (error instanceof NodeOperationError) {
-                    throw new NodeOperationError(
-                        this.getNode(),
-                        { message: getErrorMessage(error) },
-                        { itemIndex: i },
-                    );
-                }
+                      throw new NodeOperationError(
+                          this.getNode(),
+                          { message: getErrorMessage(error) },
+                          { itemIndex: i, description: error.description ?? undefined },
+                      );
+                  }
 
                 throw new NodeApiError(
                     this.getNode(),

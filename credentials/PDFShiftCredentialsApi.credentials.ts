@@ -8,7 +8,7 @@ import {
 
 export class PDFShiftCredentialsApi implements ICredentialType {
     name = 'pdfshiftCredentialsApi';
-    displayName = 'PDFShift Credentials API';
+    displayName = 'PDFShift API';
 
     icon: Icon = { light: 'file:../icons/pdfshift.png', dark: 'file:../icons/pdfshift-dark.png' };
 
@@ -17,7 +17,7 @@ export class PDFShiftCredentialsApi implements ICredentialType {
     properties: INodeProperties[] = [
         {
             displayName: 'API Key',
-            name: 'api_key',
+            name: 'apiKey',
             type: 'string',
             typeOptions: {
                 password: true,
@@ -30,7 +30,7 @@ export class PDFShiftCredentialsApi implements ICredentialType {
         type: 'generic',
         properties: {
             headers: {
-                'X-API-Key': '={{ $credentials.api_key }}',
+                'X-API-Key': '={{ $credentials.apiKey }}',
             },
         },
     };
